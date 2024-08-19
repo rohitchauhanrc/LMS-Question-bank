@@ -1,6 +1,6 @@
 # quiz_model
 
-A new Flutter project.
+A new Flutter project of a Question bank App for Internship purpose
 
 ## Getting Started
 
