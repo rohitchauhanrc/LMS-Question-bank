@@ -1,25 +1,16 @@
 # quiz_model
 
-The app is built using Flutter and supports Android, iOS and Windows platforms.
+A new Flutter project.
 
-## Installation
+## Getting Started
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/username/my_flutter_app.git
-   ```
+This project is a starting point for a Flutter application.
 
-2. Navigate to the project directory:
-   ```bash
-   cd my_flutter_app
-   ```
+A few resources to get you started if this is your first Flutter project:
 
-3. Install dependencies:
-   ```bash
-   flutter pub get
-   ```
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-4. Run the app:
-   ```bash
-   flutter run
-   ```
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
