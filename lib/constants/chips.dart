@@ -21,7 +21,6 @@ class CategoryChip{
     required this.backgroundColor,
   });
 
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
