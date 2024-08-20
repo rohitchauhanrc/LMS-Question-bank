@@ -1,37 +1,37 @@
 import 'package:flutter/material.dart';
 
-
-/// A widget that displays a category chip.
-///
-/// [category] is the name of the category displayed in the chip.
-/// [isMoreButton] indicates if the chip should be styled as a "More >" button.
-
-class CategoryChip{
+class CategoryChip extends StatelessWidget {
   final String category;
   final bool isMoreButton;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final TextStyle style;
-  final Color backgroundColor;
 
-  CategoryChip({
+  const CategoryChip({
+    super.key,
     required this.category,
     this.isMoreButton = false,
-    required this.onTap,
+    this.onTap,
     required this.style,
-    required this.backgroundColor,
   });
 
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Chip(
-        label: Text(
-          category,
-          style: style,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        decoration: BoxDecoration(
+          color: Colors.deepPurple[900] ?? Colors.deepPurple,
+          borderRadius: BorderRadius.circular(0),
+          border: Border.all(
+            color: Colors.white, // Set border color to white
+          ),
         ),
-        backgroundColor: backgroundColor,
-        labelStyle: TextStyle(
-          color: isMoreButton ? Colors.white : Colors.black,
+        child: Text(
+          category,
+          style: style.copyWith(
+            color: Colors.white,
+          ),
         ),
       ),
     );

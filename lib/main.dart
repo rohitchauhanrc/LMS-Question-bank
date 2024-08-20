@@ -25,6 +25,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
+  final PageController _pageController = PageController();
+
   final List<Widget> _children = [
     HomeScreen(),
     BarChartScreen(),
@@ -34,7 +36,15 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _children[_currentIndex],
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        children: _children,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.deepPurple[900],
         currentIndex: _currentIndex,
@@ -42,8 +52,9 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             _currentIndex = index;
           });
+          _pageController.jumpToPage(index);
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home, color: Colors.white),
             label: '',
@@ -60,33 +71,10 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
-
-
-
-class CategoryChip extends StatelessWidget {
-  final String category;
-  final bool isMoreButton;
-  final VoidCallback? onTap;
-
-  CategoryChip({
-    required this.category,
-    this.isMoreButton = false,
-    this.onTap,
-  });
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.white),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Text(category, style: TextStyle(color: Colors.white)),
-      ),
-    );
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 }
