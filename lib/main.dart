@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Screens/bar_chart_screen.dart';
-import 'Screens/home_screen.dart';
+import 'Screens/home_page.dart';
 import 'Screens/profile_screen.dart';
 
 void main() {

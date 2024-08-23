@@ -64,7 +64,7 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             "Welcome Back,",
-            style: AppTextStyles.heading,
+            style: AppTextStyles.heading(),
           ),
           backgroundColor: Colors.deepPurple[900],
           elevation: 0,
@@ -92,13 +92,13 @@ class HomeScreen extends StatelessWidget {
                       const Icon(Icons.note_alt_outlined,
                           color: Colors.white, size: 70),
                       const SizedBox(height: 10),
-                      Text("Click to Add Question", style: AppTextStyles.body),
+                      Text("Click to Add Question", style: AppTextStyles.body()),
                     ],
                   ),
                 ),
               ),
               const SizedBox(height: 30),
-              Text("Categories", style: AppTextStyles.heading),
+              Text("Categories", style: AppTextStyles.heading()),
               const SizedBox(height: 30),
               Wrap(
                 spacing: 10,
@@ -106,7 +106,7 @@ class HomeScreen extends StatelessWidget {
                 children: categories
                     .map((category) => CategoryChip(
                   category: category,
-                  style: AppTextStyles.body,
+                  style: AppTextStyles.body(),
                   onTap: () {},
                 ))
                     .toList()
@@ -117,10 +117,11 @@ class HomeScreen extends StatelessWidget {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Category()),
+                          MaterialPageRoute(
+                              builder: (context) => Category()),
                         );
                       },
-                      style: AppTextStyles.body,
+                      style: AppTextStyles.body(),
                     ),
                   ),
               ),

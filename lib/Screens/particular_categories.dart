@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_model/Screens/sub_categories.dart';
+import 'package:quiz_model/Screens/skill.dart';
 import 'package:quiz_model/constants/fonts.dart';
 import '../constants/chips.dart';
 
-class Category extends StatefulWidget {
-  const Category({super.key});
+
+class ParticularCategoryScreen extends StatefulWidget {
+  const ParticularCategoryScreen({super.key});
 
   @override
-  State<Category> createState() => _CategoryState();
+  State<ParticularCategoryScreen> createState() => _ParticularCategoryScreenState();
 }
 
-class _CategoryState extends State<Category> {
+class _ParticularCategoryScreenState extends State<ParticularCategoryScreen> {
   final TextEditingController _searchController = TextEditingController();
   final List<String> _categories = [
-    'Tech',
-    'Non - Tech',
-    'OS',
-    'Core Science',
-    'Finance',
-    'Programming Language'
+    'HTML',
+    'CSS',
+    'Angular',
+    'Vue.JS',
+    'SaaS',
+    'LESS'
   ];
 
   void _addCategory(String newCategory) {
     setState(() {
-      _categories.add(newCategory);
+      _categories.add(newCategory.toUpperCase());
     });
   }
 
@@ -56,18 +57,21 @@ class _CategoryState extends State<Category> {
                 Navigator.of(context).pop();
               },
             ),
-
           ],
         );
       },
     );
   }
 
-  void _navigateToSubCategoryPage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SubCategory()),
-    );
+  void _handleChipTap(String category) {
+    if (category == 'HTML') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SkillPage()),
+      );
+    } else {
+      // Handle other categories if needed
+    }
   }
 
   @override
@@ -80,7 +84,7 @@ class _CategoryState extends State<Category> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Welcome Back,', style: AppTextStyles.heading()),
+              Text('Frontend', style: AppTextStyles.heading()),
               const SizedBox(height: 20),
               TextField(
                 controller: _searchController,
@@ -92,40 +96,46 @@ class _CategoryState extends State<Category> {
                   ),
                   hintStyle: AppTextStyles.body(),
                 ),
+                style: AppTextStyles.body(),
               ),
               const SizedBox(height: 20),
               Text('Categories', style: AppTextStyles.heading()),
               const SizedBox(height: 16),
-              Wrap(
-                spacing: 10,
-                runSpacing: 10,
-                children: _categories.map((category) {
-                  return CategoryChip(
-                    category: category,
-                    style: AppTextStyles.body(),
-                    onTap: () {
-                      if (category == 'Tech') {
-                        _navigateToSubCategoryPage(context);
-                      } else {
-                        // Handle tap for other categories if needed
-                      }
-                    },
-                  );
-                }).toList()
-                  ..add(
-                    CategoryChip(
-                      category: 'Add Your',
-                      style: AppTextStyles.body(),
-                      isMoreButton: true,
-                      onTap: () {
-                        _showAddCategoryDialog(context);
-                      },
-                      suffixIcon: const Icon(
-                        Icons.add,
-                        color: Colors.white,
-                      ),
-                    ),
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 3,
                   ),
+                  itemCount: _categories.length,
+                  itemBuilder: (context, index) {
+                    return CategoryChip(
+                      category: _categories[index],
+                      style: AppTextStyles.body(),
+                      onTap: () {
+                        _handleChipTap(_categories[index]);
+                      },
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 20),
+              Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    _showAddCategoryDialog(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurpleAccent,
+                    padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 24.0),
+                  ),
+                  child: const Text(
+                    'Add Yours',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
               ),
             ],
           ),
@@ -134,4 +144,3 @@ class _CategoryState extends State<Category> {
     );
   }
 }
-

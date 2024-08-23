@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 
 class CategoryChip extends StatelessWidget {
   final String category;
-  final bool isMoreButton;
-  final VoidCallback? onTap;
   final TextStyle style;
+  final bool isMoreButton;
+  final VoidCallback onTap;
+  final Icon? suffixIcon;
 
   const CategoryChip({
-    super.key,
     required this.category,
-    this.isMoreButton = false,
-    this.onTap,
     required this.style,
+    required this.onTap,
+    this.isMoreButton = false,
+    this.suffixIcon,
+    super.key,
   });
 
   @override
@@ -19,19 +21,21 @@ class CategoryChip extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         decoration: BoxDecoration(
-          color: Colors.deepPurple[900] ?? Colors.deepPurple,
-          borderRadius: BorderRadius.circular(0),
-          border: Border.all(
-            color: Colors.white, // Set border color to white
-          ),
+          color: isMoreButton ? Colors.deepPurpleAccent : Colors.transparent,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.white),
         ),
-        child: Text(
-          category,
-          style: style.copyWith(
-            color: Colors.white,
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(category, style: style),
+            if (suffixIcon != null) ...[
+              const SizedBox(width: 8),
+              suffixIcon!,
+            ],
+          ],
         ),
       ),
     );
