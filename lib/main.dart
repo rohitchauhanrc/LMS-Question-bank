@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_model/Screens/authentication/login_page.dart';
+import 'Screens/authentication/signup_page.dart';
 import 'Screens/bar_chart_screen.dart';
 import 'Screens/home_page.dart';
 import 'Screens/profile_screen.dart';
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: LoginPage(),
     );
   }
 }
