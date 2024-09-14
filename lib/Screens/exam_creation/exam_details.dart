@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../questions_by_types/true_false.dart';
+import '../upload_type/from_question_bank.dart';
 
 class ExamDetailsScreen extends StatefulWidget {
   @override
@@ -9,7 +11,6 @@ class _ExamDetailsScreenState extends State<ExamDetailsScreen> {
   bool shuffleQuestions = true;
   bool shuffleOptions = true;
 
-  // Add controllers for TextFormFields
   final TextEditingController _examNameController = TextEditingController();
   final TextEditingController _durationController = TextEditingController();
 
@@ -21,14 +22,10 @@ class _ExamDetailsScreenState extends State<ExamDetailsScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.delete, color: Colors.red),
-            onPressed: () {
-              // Add delete functionality here if needed
-            },
+            onPressed: () {},
           ),
           TextButton(
-            onPressed: () {
-              // Add delete functionality here if needed
-            },
+            onPressed: () {},
             child: const Text(
               'Delete',
               style: TextStyle(color: Colors.red),
@@ -103,9 +100,8 @@ class _ExamDetailsScreenState extends State<ExamDetailsScreen> {
               ElevatedButton(
                 onPressed: () {
                   if (_examNameController.text.isNotEmpty && _durationController.text.isNotEmpty) {
-                    Navigator.pop(context, _examNameController.text); // Return the exam name to the previous screen
+                    Navigator.pop(context, _examNameController.text);
                   } else {
-                    // Show error if fields are not filled
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Please enter both exam name and duration')),
                     );
@@ -122,7 +118,7 @@ class _ExamDetailsScreenState extends State<ExamDetailsScreen> {
                   children: [
                     ElevatedButton.icon(
                       onPressed: () {
-                        // Handle adding questions here
+                        _showQuestionPicker(context); // Show the question picker
                       },
                       icon: const Icon(Icons.add),
                       label: const Text('Add questions'),
@@ -146,6 +142,46 @@ class _ExamDetailsScreenState extends State<ExamDetailsScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _showQuestionPicker(BuildContext context) async {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return SafeArea(
+          child: Wrap(
+            children: <Widget>[
+              ListTile(
+                leading: const Icon(Icons.add),
+                title: const Text('Add your own question'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => TrueFalseScreen()),
+                  );
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.library_books),
+                title: const Text('Bulk Upload your questions'),
+                onTap: () {
+                  Navigator.of(context).pop();
+
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.upload_file),
+                title: const Text('Add Questions from bank'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => FromQuestionBank()),
+                  );
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
